@@ -223,8 +223,10 @@ img{max-width:100%}
 .ld-body{position:absolute;inset:0;border:6px solid #F3EAE0;border-top:none;border-radius:0 0 72px 72px;overflow:hidden}
 .ld-fill{position:absolute;left:0;right:0;bottom:0;height:0;background:#7A4A2E}
 .ld-saucer{width:260px;height:10px;border-radius:6px;background:#F3EAE0;margin-top:10px}
-.ld-label{font-size:18px;font-weight:500}
-.ld-pct{font-size:32px;font-weight:600;color:#E8A34C}
+.ld-text{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;width:300px;transform:translateX(-26px)}
+.ld-label{font-size:18px;font-weight:500;text-align:center;width:100%}
+.ld-pct{font-size:32px;font-weight:600;color:#E8A34C;text-align:center;width:100%;font-variant-numeric:tabular-nums}
+@media (max-width:420px){.ld-text{transform:translateX(-21px)}}
 body.loading{overflow:hidden}
 
 </style>
@@ -238,8 +240,10 @@ body.loading{overflow:hidden}
 <div class="ld-cup"><div class="ld-handle"></div><div class="ld-body"><div class="ld-fill" id="ldFill"></div></div></div>
 <div class="ld-saucer"></div>
 </div>
+<div class="ld-text">
 <div class="ld-label" id="ldLabel">Kuvamo ti kafu…</div>
 <div class="ld-pct" id="ldPct">0%</div>
+</div>
 </div>
 <div style="background: #F1EEE9; color: #141210; font-family: 'Geist', system-ui, sans-serif; font-weight: 400; container-type: inline-size">
 
