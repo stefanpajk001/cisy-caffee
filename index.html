@@ -208,25 +208,17 @@ section[id]{scroll-margin-top:72px}
 html,body{background:#1B1815}
 *,*::before,*::after{box-sizing:border-box}
 img{max-width:100%}
-#loader{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:9999;background:#16110E;color:#F3EAE0;font-family:'Geist',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .7s ease,visibility .7s ease}
+#loader{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#16110E;color:#F3EAE0;font-family:'Geist',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center;transition:opacity .7s ease,visibility .7s ease}
 #loader.hide{opacity:0;visibility:hidden}
-.ld-cup-wrap{position:relative;width:300px;height:300px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;transform:translateX(-26px)}
-@media (max-width:420px){.ld-cup-wrap{transform:translateX(-21px) scale(.8);margin:-30px 0}}
-.ld-stream{position:absolute;top:0;left:146px;width:8px;height:130px;background:#7A4A2E;border-radius:4px;transition:opacity .3s ease}
-.ld-steam{position:absolute;top:40px;display:flex;gap:18px;opacity:0;transition:opacity .4s ease}
-.ld-steam span{width:6px;height:50px;border-radius:3px;background:#6E5F54;animation:ldsteam 1.6s ease-in-out infinite}
-.ld-steam span:nth-child(2){height:70px;animation-delay:.3s}.ld-steam span:nth-child(3){animation-delay:.6s}
-@keyframes ldsteam{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-10px);opacity:1}}
-#loader.done .ld-stream{opacity:0}#loader.done .ld-steam{opacity:1}
-.ld-cup{position:relative;width:190px;height:160px}
-.ld-handle{position:absolute;right:-52px;top:24px;width:46px;height:64px;border:6px solid #F3EAE0;border-left:none;border-radius:0 32px 32px 0}
-.ld-body{position:absolute;inset:0;border:6px solid #F3EAE0;border-top:none;border-radius:0 0 72px 72px;overflow:hidden}
-.ld-fill{position:absolute;left:0;right:0;bottom:0;height:0;background:#7A4A2E}
-.ld-saucer{width:260px;height:10px;border-radius:6px;background:#F3EAE0;margin-top:10px}
-.ld-text{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;width:300px;transform:translateX(-26px)}
-.ld-label{font-size:18px;font-weight:500;text-align:center;width:100%}
-.ld-pct{font-size:32px;font-weight:600;color:#E8A34C;text-align:center;width:100%;font-variant-numeric:tabular-nums}
-@media (max-width:420px){.ld-text{transform:translateX(-21px)}}
+.ld-svg{display:block;width:min(240px,64vw);height:auto;margin:0 auto 10px}
+#ldStream{transition:opacity .3s ease}
+#ldSteam{opacity:0;transition:opacity .5s ease}
+#ldSteam path{animation:ldsteam 1.8s ease-in-out infinite}
+#ldSteam path:nth-child(2){animation-delay:.3s}#ldSteam path:nth-child(3){animation-delay:.6s}
+@keyframes ldsteam{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-8px);opacity:1}}
+#loader.done #ldStream{opacity:0}#loader.done #ldSteam{opacity:1}
+.ld-label{font-size:18px;font-weight:500;margin:0 auto}
+.ld-pct{font-size:32px;font-weight:600;color:#E8A34C;margin:0 auto;font-variant-numeric:tabular-nums}
 body.loading{overflow:hidden}
 
 </style>
@@ -234,16 +226,17 @@ body.loading{overflow:hidden}
 <body>
 <script>document.body.classList.add("loading")</script>
 <div id="loader" role="status" aria-label="Učitavanje">
-<div class="ld-cup-wrap">
-<div class="ld-stream"></div>
-<div class="ld-steam"><span></span><span></span><span></span></div>
-<div class="ld-cup"><div class="ld-handle"></div><div class="ld-body"><div class="ld-fill" id="ldFill"></div></div></div>
-<div class="ld-saucer"></div>
-</div>
-<div class="ld-text">
+<svg class="ld-svg" viewBox="0 0 300 280" aria-hidden="true">
+<defs><clipPath id="cupClip"><path d="M50 120 H210 V170 Q210 240 130 240 Q50 240 50 170 Z"></path></clipPath></defs>
+<rect id="ldStream" x="126" y="6" width="8" height="118" rx="4" fill="#7A4A2E"></rect>
+<g id="ldSteam" fill="none" stroke="#6E5F54" stroke-width="5" stroke-linecap="round"><path d="M108 104 q-8 -14 0 -28 q8 -14 0 -28"></path><path d="M130 98 q-8 -14 0 -28 q8 -14 0 -28"></path><path d="M152 104 q-8 -14 0 -28 q8 -14 0 -28"></path></g>
+<rect id="ldFill" x="44" y="240" width="172" height="0" fill="#7A4A2E" clip-path="url(#cupClip)"></rect>
+<path d="M50 118 V170 Q50 240 130 240 Q210 240 210 170 V118" fill="none" stroke="#F3EAE0" stroke-width="6" stroke-linecap="round"></path>
+<path d="M210 140 h18 a22 22 0 0 1 0 44 h-18" fill="none" stroke="#F3EAE0" stroke-width="6" stroke-linecap="round"></path>
+<rect x="45" y="254" width="210" height="9" rx="4.5" fill="#F3EAE0"></rect>
+</svg>
 <div class="ld-label" id="ldLabel">Kuvamo ti kafu…</div>
 <div class="ld-pct" id="ldPct">0%</div>
-</div>
 </div>
 <div style="background: #F1EEE9; color: #141210; font-family: 'Geist', system-ui, sans-serif; font-weight: 400; container-type: inline-size">
 
@@ -640,8 +633,9 @@ body.loading{overflow:hidden}
   function finish(){L.classList.add('done');label.textContent='Kafa je spremna!';
     setTimeout(function(){L.classList.add('hide');document.body.classList.remove('loading');
       setTimeout(function(){if(L.parentNode)L.parentNode.removeChild(L);document.dispatchEvent(new Event('site:ready'));},750);},450);}
-  if(reduce){p=100;fill.style.height='92%';pct.textContent='100%';finish();return;}
-  var iv=setInterval(function(){p=Math.min(100,p+2);fill.style.height=(p*0.92)+'%';pct.textContent=p+'%';if(p>=100){clearInterval(iv);finish();}},40);
+  function setFill(v){var h=120*v/100;fill.setAttribute('height',h);fill.setAttribute('y',240-h);}
+  if(reduce){p=100;setFill(100);pct.textContent='100%';finish();return;}
+  var iv=setInterval(function(){p=Math.min(100,p+2);setFill(p);pct.textContent=p+'%';if(p>=100){clearInterval(iv);finish();}},40);
 })();
 function smoothTo(el){
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
